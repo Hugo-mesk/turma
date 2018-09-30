@@ -28,7 +28,7 @@ SECRET_KEY = 'pvp$!7)@=6f7v3yum0&%caf8p8)zs*&t1!c)ria6shzjf0+6+t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["Hugomesquita.pythonanywhere.com"]
+ALLOWED_HOSTS = ["Hugomesquita.pythonanywhere.com", 'localhost']
 
 
 # Application definition
@@ -143,6 +143,7 @@ INSTALLED_APPS = (
 	'disqus',
 	# My Packages
 	'turma',
+    'curso',
 )
 
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
@@ -151,6 +152,17 @@ DROPBOX_ROOT_PATH = 'Turma-TI'
 
 DISQUS_API_KEY = 'cuU1iIHNwoT8fKbXd8KwndQHQ4eNyPRBUES5tGL5iQ1uOjxCW6yLVFhI3CDH2HU0'
 DISQUS_WEBSITE_SHORTNAME = 'https://Hugomesquita.pythonanywhere.com/'
+
+CKEDITOR_SETTINGS = {
+    'language': '{{ language }}',
+    'toolbar_HTMLField': [
+        ['Undo', 'Redo'],
+        ['ShowBlocks'],
+        ['Format', 'Styles'],
+        ['Bold', 'Italic', 'Underline', '-', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
+    ],
+    'skin': 'moono-lisa',
+}
 
 LANGUAGES = (
     ## Customize this
@@ -188,7 +200,7 @@ CMS_PLACEHOLDER_CONF = {}
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Hugomesquita$turma',
         'USER': 'Hugomesquita',
         'PASSWORD': 'lm,375.j',
@@ -198,7 +210,7 @@ DATABASES = {
 }
 
 MIGRATION_MODULES = {
-    
+
 }
 
 THUMBNAIL_PROCESSORS = (
