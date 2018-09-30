@@ -138,8 +138,15 @@ INSTALLED_APPS = (
     'djangocms_snippet',
     'djangocms_googlemap',
     'djangocms_video',
-    'turma'
+	# Django Package
+	'storages',
+	# My Packages
+	'turma',
 )
+
+DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DROPBOX_OAUTH2_TOKEN = 'RRcl_FEUqF4AAAAAAAAsWuBCdXwfkR9RgsfdFOF6EYNAiIIYqqj2jqUmZZKdO5BV'
+DROPBOX_ROOT_PATH = 'Turma-TI'
 
 LANGUAGES = (
     ## Customize this
