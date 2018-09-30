@@ -28,7 +28,7 @@ SECRET_KEY = 'pvp$!7)@=6f7v3yum0&%caf8p8)zs*&t1!c)ria6shzjf0+6+t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["Hugomesquita.pythonanywhere.com"]
 
 
 # Application definition
@@ -140,6 +140,7 @@ INSTALLED_APPS = (
     'djangocms_video',
 	# Django Package
 	'storages',
+	'disqus',
 	# My Packages
 	'turma',
 )
@@ -147,6 +148,9 @@ INSTALLED_APPS = (
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 DROPBOX_OAUTH2_TOKEN = 'RRcl_FEUqF4AAAAAAAAsWuBCdXwfkR9RgsfdFOF6EYNAiIIYqqj2jqUmZZKdO5BV'
 DROPBOX_ROOT_PATH = 'Turma-TI'
+
+DISQUS_API_KEY = 'cuU1iIHNwoT8fKbXd8KwndQHQ4eNyPRBUES5tGL5iQ1uOjxCW6yLVFhI3CDH2HU0'
+DISQUS_WEBSITE_SHORTNAME = 'https://Hugomesquita.pythonanywhere.com/'
 
 LANGUAGES = (
     ## Customize this
