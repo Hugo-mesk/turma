@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+
+{% block content %}
+  {% for subject in subject_list %}
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{ subject.title }}</h5>
+        <p class="card-text">{{ subject.description }}</p>
+        <a href={{ request.path }}{{ subject.id }}/" class="btn btn-primary">Detalhes</a>
+      </div>
+    </div>
+{% endblock content %}
