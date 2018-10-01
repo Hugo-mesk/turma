@@ -16,8 +16,8 @@ class PhotographInline(GenericStackedInline):
 
 class SubjectAdmin(admin.ModelAdmin):
     inlines = [
-               StatusInline,
-               OrderFilesInline,
+               MaterialInline,
+               PhotographInline,
               ]
 
 
