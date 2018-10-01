@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+{% load cms_tags %}
+
+{% block content %}
+  <h5 class="card-title">{{ subject.title }}</h5>
+  <p class="card-text">{{ subject.description }}</p>
+  {% for photograph in photograph_list %}
+    <img class='inline-picture' src="{{ photograph.document.url }}">
+  {% endfor %}
+  {% for file in material_list %}
+    <li><a href="{{ file.document.url }}">{{file.document.name}}</a></li>
+  {% endfor %}
+{% endblock content %}
