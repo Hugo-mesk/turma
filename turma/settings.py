@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'pvp$!7)@=6f7v3yum0&%caf8p8)zs*&t1!c)ria6shzjf0+6+t'
+SECRET_KEY = '<SECRET KEY>'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -147,11 +147,11 @@ INSTALLED_APPS = (
 )
 
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-DROPBOX_OAUTH2_TOKEN = 'RRcl_FEUqF4AAAAAAAAsWuBCdXwfkR9RgsfdFOF6EYNAiIIYqqj2jqUmZZKdO5BV'
-DROPBOX_ROOT_PATH = 'Turma-TI'
+DROPBOX_OAUTH2_TOKEN = '<YOUR TOKEN>'
+DROPBOX_ROOT_PATH = '<APP ROOT>'
 
-DISQUS_API_KEY = 'cuU1iIHNwoT8fKbXd8KwndQHQ4eNyPRBUES5tGL5iQ1uOjxCW6yLVFhI3CDH2HU0'
-DISQUS_WEBSITE_SHORTNAME = 'https://Hugomesquita.pythonanywhere.com/'
+DISQUS_API_KEY = '<YOUR API KEY>'
+DISQUS_WEBSITE_SHORTNAME = '<APP SHORTNAME>'
 
 CKEDITOR_SETTINGS = {
     'language': '{{ language }}',
