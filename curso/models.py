@@ -5,62 +5,67 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 
 # Create your models here.
-class Material(models.Model):
+class Arquivos(models.Model):
     def get_upload_to(self, filename):
         filePath = (self.content_object.title)
         if filename.replace(" ", "_"):
-            filePath = filePath + (filename.replace(" ", "_"),)
+            filePath = filePath.replace(" ", "_") + (filename.replace(" ", "_"),)
 
         return os.path.join(*(filePath))
 
-    document = models.FileField(upload_to=get_upload_to)
-    creation_date = models.DateField(auto_now_add=True)
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
+    documento = models.FileField(upload_to=get_upload_to)
+    data_criacao = models.DateField(auto_now_add=True)
+    # Tecnica de foreing key generica
+    # Em vez de declara a chave estrageira nessa classe vamos torna-la disponivel para todas as classes
+    tipo_conteudo = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    id_objeto = models.PositiveIntegerField()
+    objeto_do_conteudo = GenericForeignKey('content_type', 'object_id')
 
     def __str__(self):
         return self.document.name
 
     class Meta:
         verbose_name = _("Material")
-        verbose_name_plural = _("Materials")
+        verbose_name_plural = _("Materiais")
 
-class Photograph(models.Model):
+class Foto(models.Model):
     def get_upload_to(self, filename):
-        filePath = (self.content_object.title)
+        filePath = self.content_object.title
         if filename.replace(" ", "_"):
-            filePath = filePath + (filename.replace(" ", "_"),)
+            filePath = os.path.join(filePath , (filename.replace(" ", "_"),))
 
-        return os.path.join(*(filePath))
+        return filePath
 
-    document = models.ImageField(upload_to=get_upload_to)
-    creation_date = models.DateField(auto_now_add=True)
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
+    imagem = models.ImageField(upload_to=get_upload_to)
+    data_criacao = models.DateField(auto_now_add=True)
+    # Tecnica de foreing key generica
+    # Em vez de declara a chave estrageira nessa classe vamos torna-la disponivel para todas as classes
+    tipo_conteudo = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    id_objeto = models.PositiveIntegerField()
+    objeto_do_conteudo = GenericForeignKey('content_type', 'object_id')
 
     def __str__(self):
         return self.document.name
 
     class Meta:
-        verbose_name = _("Photograph")
+        verbose_name = _("Foto")
         verbose_name_plural = _("Album")
 
 
-class Subject(models.Model):
-    title = models.CharField(verbose_name=_('Title'),
+class Assunto(models.Model):
+    titulo = models.CharField(verbose_name=_('Titulo'),
                               max_length=90)
-    description = HTMLField(verbose_name=_('Description'),
+    descricao = HTMLField(verbose_name=_('Descrição'),
                             configuration='CKEDITOR_SETTINGS',
                             null=True,
                             blank=True)
-    materials = GenericRelation(Material, verbose_name=_("Materials"))
-    album = GenericRelation(Photograph, verbose_name=_("Album"))
+    # Como indicado acima usamos aqui as chaves estrageiras genericas
+    materiais = GenericRelation(Arquivos, verbose_name=_("Materials"))
+    album = GenericRelation(Foto, verbose_name=_("Album"))
 
     def __str__(self):
         return self.title
 
     class Meta:
-        verbose_name = _("Subject")
-        verbose_name_plural = _("Subjects")
+        verbose_name = _("Assunto")
+        verbose_name_plural = _("Assuntos")
