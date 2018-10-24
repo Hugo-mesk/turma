@@ -17,8 +17,8 @@ class Arquivos(models.Model):
     data_criacao = models.DateField(auto_now_add=True)
     # Tecnica de foreing key generica
     # Em vez de declara a chave estrageira nessa classe vamos torna-la disponivel para todas as classes
-    tipo_conteudo = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    id_objeto = models.PositiveIntegerField()
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
     objeto_do_conteudo = GenericForeignKey('content_type', 'object_id')
 
     def __str__(self):
@@ -40,8 +40,8 @@ class Foto(models.Model):
     data_criacao = models.DateField(auto_now_add=True)
     # Tecnica de foreing key generica
     # Em vez de declara a chave estrageira nessa classe vamos torna-la disponivel para todas as classes
-    tipo_conteudo = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    id_objeto = models.PositiveIntegerField()
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
     objeto_do_conteudo = GenericForeignKey('content_type', 'object_id')
 
     def __str__(self):

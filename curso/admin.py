@@ -16,8 +16,8 @@ class FotoInline(GenericStackedInline):
 
 class AssuntoAdmin(admin.ModelAdmin):
     inlines = [
-               MaterialInline,
-               PhotographInline,
+               ArquivosInline,
+               FotoInline,
               ]
 
 
