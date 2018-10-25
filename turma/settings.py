@@ -206,6 +206,9 @@ DATABASES = {
         'PASSWORD': 'lm,375.j',
         'HOST': 'Hugomesquita.mysql.pythonanywhere-services.com',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
+        'OPTIONS': {
+                    'sql_mode': 'traditional', #MySQL's Strict Mode fixes many data integrity problems in MySQL
+                   },
     }
 }
 

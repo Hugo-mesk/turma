@@ -3,6 +3,7 @@ from django.db import models
 from djangocms_text_ckeditor.fields import HTMLField
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
+import os
 
 # Create your models here.
 class Arquivos(models.Model):
