@@ -141,6 +141,7 @@ INSTALLED_APPS = (
 	# Django Package
 	'storages',
 	'disqus',
+	'widget_tweaks',
 	# My Packages
 	'turma',
     'curso',
