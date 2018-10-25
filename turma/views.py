@@ -6,21 +6,20 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import login as auth_login
-from django.contrib.auth import get_user_model
+
+from .models import User
 from .forms import UserAdminCreationForm
 
 
-User = get_user_model()
-
 class IndexView(LoginRequiredMixin, TemplateView):
 
-    template_name = 'registration/index.html'
+    template_name = 'accounts/index.html'
 
 
 class RegisterView(CreateView):
 
     model = User
-    template_name = 'registration/register.html'
+    template_name = 'accounts/register.html'
     form_class = UserAdminCreationForm
     success_url = reverse_lazy('index')
 
@@ -28,7 +27,7 @@ class RegisterView(CreateView):
 class UpdateUserView(LoginRequiredMixin, UpdateView):
 
     model = User
-    template_name = 'registration/update_user.html'
+    template_name = 'accounts/update_user.html'
     fields = ['name', 'email']
     success_url = reverse_lazy('accounts:index')
 
@@ -38,7 +37,7 @@ class UpdateUserView(LoginRequiredMixin, UpdateView):
 
 class UpdatePasswordView(LoginRequiredMixin, FormView):
 
-    template_name = 'registration/update_password.html'
+    template_name = 'accounts/update_password.html'
     success_url = reverse_lazy('accounts:index')
     form_class = PasswordChangeForm
 

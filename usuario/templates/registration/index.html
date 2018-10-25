@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Minha Conta{% endblock title%}
+
+{% block breadcumb %}
+  <ol class="breadcrumb">
+    <li><a href="{% url 'node:index' %}">Início</a></li>
+    <li class="active">Minha Conta</li>
+  </ol>
+{% endblock breadcumb %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="list-group">
+          <a href="{% url 'node:index' %}" class="list-group-item active">Minha Conta</a>
+          <a href="{% url 'node:update_user' %}" class="list-group-item">Alterar Dados</a>
+          <a href="{% url 'node:update_password' %}" class="list-group-item">Alterar Senha</a>
+        </div>
+    </div>
+    <div class="col-md-8">
+        {% block accounts_container %}
+            <h2>Bem vindo {{ user }}</h2>
+        {% endblock %}
+    </div>
+</div>
+{% endblock content %}
