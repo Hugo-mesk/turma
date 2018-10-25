@@ -145,6 +145,7 @@ INSTALLED_APPS = (
 	# My Packages
 	'turma',
     'curso',
+    'usuario',
 )
 
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
