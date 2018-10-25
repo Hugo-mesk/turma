@@ -21,14 +21,14 @@ def subject_list(request):
 @login_required
 def subject_detail(request, subject_id):
     subject = get_object_or_404(Assunto, pk=subject_id)
-    photograph_list = subject.album.all()
-    material_list = subject.materials.all()
+    lista_arquivos = subject.materiais.all()
+    lista_fotos = subject.album.all()
 
     template = loader.get_template('curso/subject_detail.html')
 
     context = {
         'subject': subject,
-        'photograph_list': photograph_list,
-        'material_list': material_list,
+        'lista_fotos': lista_fotos,
+        'lista_arquivos': lista_arquivos,
     }
     return HttpResponse(template.render(context, request))

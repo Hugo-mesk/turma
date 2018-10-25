@@ -4,7 +4,7 @@
 
 {% block breadcumb %}
   <ol class="breadcrumb">
-    <li><a href="{% url 'node:index' %}">Início</a></li>
+    <li><a href="{% url 'usuario:index' %}">Início</a></li>
     <li class="active">Minha Conta</li>
   </ol>
 {% endblock breadcumb %}
@@ -13,9 +13,9 @@
 <div class="row">
     <div class="col-md-4">
         <div class="list-group">
-          <a href="{% url 'node:index' %}" class="list-group-item active">Minha Conta</a>
-          <a href="{% url 'node:update_user' %}" class="list-group-item">Alterar Dados</a>
-          <a href="{% url 'node:update_password' %}" class="list-group-item">Alterar Senha</a>
+          <a href="{% url 'usuario:index' %}" class="list-group-item active">Minha Conta</a>
+          <a href="{% url 'usuario:update_user' %}" class="list-group-item">Alterar Dados</a>
+          <a href="{% url 'usuario:update_password' %}" class="list-group-item">Alterar Senha</a>
         </div>
     </div>
     <div class="col-md-8">

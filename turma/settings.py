@@ -191,9 +191,8 @@ CMS_LANGUAGES = {
 
 CMS_TEMPLATES = (
     ## Customize this
-    ('fullwidth.html', 'Fullwidth'),
-    ('sidebar_left.html', 'Sidebar Left'),
-    ('sidebar_right.html', 'Sidebar Right')
+    ('base.html', 'base'),
+    ('curso/subject.html', 'assunto'),
 )
 
 CMS_PERMISSION = True

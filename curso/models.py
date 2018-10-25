@@ -8,11 +8,14 @@ import os
 # Create your models here.
 class Arquivos(models.Model):
     def get_upload_to(self, filename):
-        filePath = (self.content_object.title)
+        filePath = (self.content_object.titulo)
         if filename.replace(" ", "_"):
-            filePath = filePath.replace(" ", "_") + (filename.replace(" ", "_"),)
+            filename = filename.replace(" ", "_")
 
-        return os.path.join(*(filePath))
+        if filePath.replace(" ", "_"):
+            filePath = filePath.replace(" ", "_")
+
+        return os.path.join(filePath,filename)
 
     documento = models.FileField(upload_to=get_upload_to)
     data_criacao = models.DateField(auto_now_add=True)
@@ -20,10 +23,10 @@ class Arquivos(models.Model):
     # Em vez de declara a chave estrageira nessa classe vamos torna-la disponivel para todas as classes
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
-    objeto_do_conteudo = GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey('content_type', 'object_id')
 
     def __str__(self):
-        return self.document.name
+        return self.documento.name
 
     class Meta:
         verbose_name = _("Material")
@@ -31,7 +34,7 @@ class Arquivos(models.Model):
 
 class Foto(models.Model):
     def get_upload_to(self, filename):
-        filePath = self.content_object.title
+        filePath = self.content_object.titulo
         if filename.replace(" ", "_"):
             filePath = os.path.join(filePath , (filename.replace(" ", "_"),))
 
@@ -43,10 +46,10 @@ class Foto(models.Model):
     # Em vez de declara a chave estrageira nessa classe vamos torna-la disponivel para todas as classes
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
-    objeto_do_conteudo = GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey('content_type', 'object_id')
 
     def __str__(self):
-        return self.document.name
+        return self.imagem.name
 
     class Meta:
         verbose_name = _("Foto")
@@ -65,7 +68,7 @@ class Assunto(models.Model):
     album = GenericRelation(Foto, verbose_name=_("Album"))
 
     def __str__(self):
-        return self.title
+        return self.titulo
 
     class Meta:
         verbose_name = _("Assunto")

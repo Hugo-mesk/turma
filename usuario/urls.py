@@ -7,7 +7,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^entrar/$', login, {'template_name': 'node/login.html'}, name='login'),
+    url(r'^entrar/$', login, {'template_name': 'registration/login.html'}, name='login'),
     url(r'^sair/$', logout, {'next_page': 'index'}, name='logout'),
     url(r'^alterar-dados/$', views.update_user, name='update_user'),
     url(r'^alterar-senha/$', views.update_password, name='update_password'),

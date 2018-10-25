@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 @apphook_pool.register
 class UsuarioHook(CMSApp):
     name = _("usuario")
+    app_name = "usuario"
 
     def get_urls(self, page=None, language=None, **kwargs):
         # replace this with the path to your application's URLs module

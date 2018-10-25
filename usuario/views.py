@@ -29,8 +29,8 @@ class UpdateUserView(LoginRequiredMixin, UpdateView):
 
     model = User
     template_name = 'registration/update_user.html'
-    fields = ['name', 'email']
-    success_url = reverse_lazy('accounts:index')
+    fields = ['username', 'email']
+    success_url = reverse_lazy('usuario:index')
 
     def get_object(self):
         return self.request.user
@@ -39,7 +39,7 @@ class UpdateUserView(LoginRequiredMixin, UpdateView):
 class UpdatePasswordView(LoginRequiredMixin, FormView):
 
     template_name = 'registration/update_password.html'
-    success_url = reverse_lazy('accounts:index')
+    success_url = reverse_lazy('usuario:index')
     form_class = PasswordChangeForm
 
     def get_form_kwargs(self):

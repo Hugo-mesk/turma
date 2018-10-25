@@ -2,12 +2,12 @@
 {% load cms_tags %}
 
 {% block content %}
-  <h5 class="card-title">{{ subject.title }}</h5>
-  <p class="card-text">{{ subject.description }}</p>
-  {% for photograph in photograph_list %}
-    <img class='inline-picture' src="{{ photograph.document.url }}">
+  <h5 class="card-title">{{ subject.titulo }}</h5>
+  <p class="card-text">{{ subject.descricao }}</p>
+  {% for foto in lista_fotos %}
+    <img class='inline-picture' src="{{ foto.document.url }}">
   {% endfor %}
-  {% for file in material_list %}
-    <li><a href="{{ file.document.url }}">{{file.document.name}}</a></li>
+  {% for arquivo in lista_arquivos %}
+    <li><a href="{{ arquivo.documento.url }}">{{arquivo.documento.name}}</a></li>
   {% endfor %}
 {% endblock content %}
