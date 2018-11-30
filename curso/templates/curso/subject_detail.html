@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 {% load cms_tags disqus_tags static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'fluent_comments/css/ajaxcomments.css' %}" />
-<script type="text/javascript" src="{% static 'fluent_comments/js/ajaxcomments.js' %}"></script>
-
 {% block content %}
   <h5 class="card-title">{{ subject.titulo }}</h5>
   <p class="card-text">{{ subject.descricao }}</p>

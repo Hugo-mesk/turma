@@ -64,9 +64,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
 STATIC_ROOT = os.path.join(DATA_DIR, 'static')
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'turma', 'static'),
-)
 SITE_ID = 1
 
 
@@ -142,6 +139,7 @@ INSTALLED_APPS = (
 	'storages',
 	'disqus',
 	'widget_tweaks',
+	'bootstrap_themes',
 	# My Packages
 	'turma',
     'curso',
