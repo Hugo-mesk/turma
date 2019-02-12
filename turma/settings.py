@@ -139,7 +139,6 @@ INSTALLED_APPS = (
 	'storages',
 	'disqus',
 	'widget_tweaks',
-	'bootstrap_themes',
 	# My Packages
 	'turma',
     'curso',

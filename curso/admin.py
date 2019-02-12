@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericTabularInline, GenericStackedInline
-from .models import Arquivos, Foto, Assunto
+from .models import Arquivos, Foto, Materia
 
 
 # Register your models here.
@@ -14,7 +14,7 @@ class FotoInline(GenericStackedInline):
     extra = 0
 
 
-class AssuntoAdmin(admin.ModelAdmin):
+class MateriaAdmin(admin.ModelAdmin):
     inlines = [
                ArquivosInline,
                FotoInline,
@@ -23,4 +23,4 @@ class AssuntoAdmin(admin.ModelAdmin):
 
 admin.site.register(Foto)
 admin.site.register(Arquivos)
-admin.site.register(Assunto, AssuntoAdmin)
+admin.site.register(Materia, MateriaAdmin)

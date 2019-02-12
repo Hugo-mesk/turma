@@ -29,8 +29,8 @@ class Arquivos(models.Model):
         return self.documento.name
 
     class Meta:
-        verbose_name = _("Material")
-        verbose_name_plural = _("Materiais")
+        verbose_name = _("Arquivo")
+        verbose_name_plural = _("Arquivos")
 
 class Foto(models.Model):
     def get_upload_to(self, filename):
@@ -56,20 +56,34 @@ class Foto(models.Model):
         verbose_name_plural = _("Album")
 
 
-class Assunto(models.Model):
+class Periodo(models.Model):
+    numero = models.IntergerField(verbose_name = _('Número'))
+    slug = models.CharField(verbose_name = _('Slug'),
+                            max_length=30)
+
+    def __str__(self):
+        return self.imagem.name
+
+    class Meta:
+        verbose_name = _("Foto")
+        verbose_name_plural = _("Album")
+
+
+class Materia(models.Model):
     titulo = models.CharField(verbose_name=_('Titulo'),
                               max_length=90)
     descricao = HTMLField(verbose_name=_('Descrição'),
                             configuration='CKEDITOR_SETTINGS',
                             null=True,
                             blank=True)
+    periodo = models.ForeignKey(Periodo,'Matérias')
     # Como indicado acima usamos aqui as chaves estrageiras genericas
-    materiais = GenericRelation(Arquivos, verbose_name=_("Materials"))
+    arquivos = GenericRelation(Arquivos, verbose_name=_("arquivos"))
     album = GenericRelation(Foto, verbose_name=_("Album"))
 
     def __str__(self):
         return self.titulo
 
     class Meta:
-        verbose_name = _("Assunto")
-        verbose_name_plural = _("Assuntos")
+        verbose_name = _("Matéria")
+        verbose_name_plural = _("Matérias")
