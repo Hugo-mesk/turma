@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load cms_tags disqus_tags static %}
+
+{% block content %}
+  <h5 class="card-title">{{ materia.titulo }}</h5>
+  <p class="card-text">{{ materia.descricao }}</p>
+  {% for foto in album %}
+    <img class='inline-picture' src="{{ foto.document.url }}">
+  {% endfor %}
+  {% for arquivo in arquivos %}
+    <li><a href="{{ arquivo.documento.url }}">{{arquivo.documento.name}}</a></li>
+  {% endfor %}
+
+  <div class="row">
+        <div class="col-sm-6 blog-main">
+          {% disqus_show_comments %}
+        </div>
+    </div>
+
+{% endblock content %}

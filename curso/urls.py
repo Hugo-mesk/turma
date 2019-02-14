@@ -3,8 +3,10 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    # ex: /subject/
-    url('^$', views.subject_list, name='subject_list'),
-    # ex: /subject/5/
-    url('^(?P<subject_id>[0-9]+)/$', views.subject_detail, name='subject_detail'),
+    # ex: /curso/
+    url('^$', views.subject_list, name='materias'),
+    # ex: /periodo/
+    url('^(?P<periodo_slug>)/$', views.materia, name='materia'),
+    # ex: /periodo/calculo
+    url('^(?P<periodo_slug>)/(?P<materia_titulo>)/$', views.materia, name='materia'),
 ]

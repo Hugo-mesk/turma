@@ -76,7 +76,7 @@ class Materia(models.Model):
                             configuration='CKEDITOR_SETTINGS',
                             null=True,
                             blank=True)
-    periodo = models.ForeignKey(Periodo,'Matérias')
+    periodo = models.ForeignKey(Periodo,'materias')
     # Como indicado acima usamos aqui as chaves estrageiras genericas
     arquivos = GenericRelation(Arquivos, verbose_name=_("arquivos"))
     album = GenericRelation(Foto, verbose_name=_("Album"))
