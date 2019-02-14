@@ -57,16 +57,16 @@ class Foto(models.Model):
 
 
 class Periodo(models.Model):
-    numero = models.IntergerField(verbose_name = _('Número'))
+    numero = models.IntegerField(verbose_name = _('Número'))
     slug = models.CharField(verbose_name = _('Slug'),
                             max_length=30)
 
     def __str__(self):
-        return self.imagem.name
+        return self.slug
 
     class Meta:
-        verbose_name = _("Foto")
-        verbose_name_plural = _("Album")
+        verbose_name = _("Periodo")
+        verbose_name_plural = _("Periodos")
 
 
 class Materia(models.Model):
@@ -76,7 +76,9 @@ class Materia(models.Model):
                             configuration='CKEDITOR_SETTINGS',
                             null=True,
                             blank=True)
-    periodo = models.ForeignKey(Periodo,'materias')
+    periodo = models.ForeignKey(Periodo,
+                                on_delete=models.CASCADE,
+                                related_name='materias')
     # Como indicado acima usamos aqui as chaves estrageiras genericas
     arquivos = GenericRelation(Arquivos, verbose_name=_("arquivos"))
     album = GenericRelation(Foto, verbose_name=_("Album"))

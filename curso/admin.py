@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericTabularInline, GenericStackedInline
-from .models import Arquivos, Foto, Materia
+from .models import Arquivos, Foto, Materia, Periodo
 
 
 # Register your models here.
@@ -21,6 +21,7 @@ class MateriaAdmin(admin.ModelAdmin):
               ]
 
 
+admin.site.register(Periodo)
 admin.site.register(Foto)
 admin.site.register(Arquivos)
 admin.site.register(Materia, MateriaAdmin)

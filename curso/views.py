@@ -33,7 +33,7 @@ def periodo_detail(request, periodo_slug):
 
 
 @login_required
-def materia(request, periodo_slug, materia_id):
+def materia(request, periodo_slug, materia_titulo):
     materia = get_object_or_404(Materia, titulo=materia_titulo)
     arquivos = materia.arquivos.all()
     album = materia.album.all()
