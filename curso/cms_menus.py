@@ -2,13 +2,16 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from cms.menu_bases import CMSAttachMenu
-from menus.base import NavigationNode
+from menus.base import Menu, NavigationNode
 from menus.menu_pool import menu_pool
 
-from .models import Periodo, Materia
-from .views import periodo_detail, materia
 
-class PeriodoMenu(CMSAttachMenu):
+from .models import Periodo
+from .views import periodo_detail as periodo_view
+from .views import materia as materia_view
+
+class PeriodoMenu(Menu):
+
     name = _("Periodo Menu")  # give the menu a name this is required.
 
     def get_nodes(self, request):
@@ -16,25 +19,27 @@ class PeriodoMenu(CMSAttachMenu):
         This method is used to build the menu tree.
         """
         nodes = []
-        for periodo in Periodo.objects.all():
+        for periodo in Periodo.objects.order_by('numero').prefetch_related('materias'):
             node = NavigationNode(
                 title=periodo.slug,
-                url=reverse(periodo_detail, kwargs={'periodo_slug': periodo.slug}),
+                url=reverse('curso:periodo_detail', kwargs={'periodo_slug': periodo.slug}),
                 id=periodo.numero,  # unique id for this node within the menu
                 attr={'visible_for_anonymous': False},
             )
 
+            print(node)
             nodes.append(node)
 
-            for materia in periodo.materia_set.all():
+            for materia in periodo.materias.all():
                 node = NavigationNode(
-                    title=material.titulo,
-                    url=reverse(materia, kwargs={'materia_titulo': materia.titulo}),
+                    title=materia.titulo,
+                    url=reverse('curso:materia', kwargs={'periodo_slug': periodo.slug, 'materia_titulo': materia.titulo}),
                     id=materia.pk,  # unique id for this node within the menu
                     parent_id=periodo.numero,
                     attr={'visible_for_anonymous': False},
                 )
 
+                print(node)
                 nodes.append(node)
 
         return nodes

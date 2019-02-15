@@ -20,6 +20,7 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     url(r'^admin/', include(admin.site.urls)),  # NOQA
     url('accounts/', include('django.contrib.auth.urls')),
+    url('curso/', include('curso.urls', namespace='curso')),
     url(r'^', include('cms.urls')),
 )
 

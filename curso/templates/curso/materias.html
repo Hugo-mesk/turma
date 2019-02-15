@@ -2,10 +2,10 @@
 {% load cms_tags %}
 
 {% block content %}
-  <h2>Lista de Assuntos</h2>
+  <h2>Lista de Matérias</h2>
   {% for periodo in periodos %}
   <h3>{{ periodo.slug }} </h3>
-    {% for materia in periodo.materias_set.all %}
+    {% for materia in periodo.materias.all %}
         <div class="card" style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title">{{ materia.titulo }}</h5>

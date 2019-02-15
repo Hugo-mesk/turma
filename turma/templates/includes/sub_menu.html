@@ -1,0 +1,19 @@
+{% load i18n menu_tags cache %}
+
+{% for child in children %}
+    {% if child.children %}
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <a role="button" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}" class="btn btn-primary">{{ child.get_menu_title }}</a>
+        <div class="btn-group" role="group">
+            <button id="btnGroupDrop{{ child.menu_level }}" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+            <div class="dropdown-menu bg-primary" aria-labelledby="btnGroupDrop{{ child.menu_level }}" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 36px, 0px);">
+                {% show_menu from_level to_level extra_inactive extra_active 'includes/sub_menu.html' "" "" child %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <a class="nav-link" id="themes" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">
+        {{ child.get_menu_title }}
+    </a>
+    {% endif %}
+{% endfor %}
