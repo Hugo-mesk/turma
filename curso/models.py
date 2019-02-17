@@ -58,11 +58,17 @@ class Foto(models.Model):
 
 class Periodo(models.Model):
     numero = models.IntegerField(verbose_name = _('Número'))
-    slug = models.CharField(verbose_name = _('Slug'),
+    titulo = models.CharField(verbose_name=_('Titulo'),
+                              max_length=90)
+    slug = models.SlugField(verbose_name = _('Slug'),
                             max_length=30)
 
     def __str__(self):
         return self.slug
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('curso:periodo-detail', (), {'periodo_slug': self.slug})
 
     class Meta:
         verbose_name = _("Periodo")
@@ -72,6 +78,8 @@ class Periodo(models.Model):
 class Materia(models.Model):
     titulo = models.CharField(verbose_name=_('Titulo'),
                               max_length=90)
+    slug = models.SlugField(verbose_name = _('Slug'),
+                            max_length=30)
     descricao = HTMLField(verbose_name=_('Descrição'),
                             configuration='CKEDITOR_SETTINGS',
                             null=True,
@@ -85,6 +93,10 @@ class Materia(models.Model):
 
     def __str__(self):
         return self.titulo
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('curso:materia-detail', (), {'periodo_slug':self.periodo.slug,'materia_slug':self.slug})
 
     class Meta:
         verbose_name = _("Matéria")

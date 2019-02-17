@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 
 @login_required
-def lista_materias(request):
+def CursoListView(request):
     periodos = Periodo.objects.order_by('numero').prefetch_related('materias')
 
     template = loader.get_template('curso/materias.html')
@@ -19,7 +19,7 @@ def lista_materias(request):
 
 
 @login_required
-def periodo_detail(request, periodo_slug):
+def PeriodoDetailView(request, periodo_slug):
     periodo = get_object_or_404(Periodo.objects.filter(slug=periodo_slug).prefetch_related('materias'))
     materias = periodo.materias.all()
 
@@ -33,8 +33,8 @@ def periodo_detail(request, periodo_slug):
 
 
 @login_required
-def materia(request, periodo_slug, materia_titulo):
-    materia = get_object_or_404(Materia.objects.filter(periodo__slug=periodo_slug, titulo=materia_titulo))
+def MateriaDetailView(request, periodo_slug, materia_slug):
+    materia = get_object_or_404(Materia.objects.filter(periodo__slug=periodo_slug, slug=materia_slug))
     arquivos = materia.arquivos.all()
     album = materia.album.all()
 
