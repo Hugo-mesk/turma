@@ -3,6 +3,8 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+    # ex: /materia/criar
+    url('^materia/criar/$', views.MateriaCreateView.as_view(), name='materia-criar'),
     # ex: /periodo/calculo
     url('^(?P<periodo_slug>[-\w]+)/(?P<materia_slug>[-\w]+)/$', views.MateriaDetailView, name='materia-detail'),
     # ex: /periodo/

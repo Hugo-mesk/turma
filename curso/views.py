@@ -1,9 +1,54 @@
 from django.shortcuts import get_object_or_404
-from .models import Materia, Periodo
+from .models import Materia, Periodo, Arquivos, Foto
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import CreateView
+from extra_views import InlineFormSetFactory, CreateWithInlinesView, UpdateWithInlinesView
+from extra_views.generic import GenericInlineFormSetFactory
 
+
+class PeriodoInline(InlineFormSetFactory):
+    model = Periodo
+
+
+class ArquivosInline(GenericInlineFormSetFactory):
+    model = Arquivos
+    fields = ['documento']
+    factory_kwargs = {'ct_field': 'content_type', 'fk_field': 'object_id',
+                      'extra': 1}
+    formset_kwargs = {'save_as_new': True}
+
+
+class FotoInline(GenericInlineFormSetFactory):
+    model = Foto
+    fields = ['imagem']
+    factory_kwargs = {'ct_field': 'content_type', 'fk_field': 'object_id',
+                      'extra': 1}
+    formset_kwargs = {'save_as_new': True}
+
+class MateriaCreateView(CreateWithInlinesView):
+    model = Materia
+    inlines = [ArquivosInline, FotoInline]
+    fields = "__all__"
+    template_name = 'curso/materia_criar.html'
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()
+
+
+# class OrderUpdateView(UpdateWithInlinesView):
+#     model = Order
+#     form_class = OrderForm
+#     inlines = [ItemsInline, TagsInline]
+#
+#     def get_success_url(self):
+#         return self.object.get_absolute_url()
+
+# class MateriaCreateView(CreateView):
+#     model = Materia
+#     fields = ['titulo', 'slug', 'descricao', 'periodo', 'arquivos', 'album']
+#     template = 'curso/materia_criar.html'
 
 
 @login_required

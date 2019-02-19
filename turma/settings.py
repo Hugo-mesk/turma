@@ -140,6 +140,7 @@ INSTALLED_APPS = (
 	'storages',
 	'disqus',
 	'widget_tweaks',
+    'extra_views',
 	# My Packages
 	'turma',
     'curso',

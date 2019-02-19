@@ -26,7 +26,6 @@ class PeriodoMenu(CMSAttachMenu):
                 id=periodo.numero,  # unique id for this node within the menu
                 attr={'visible_for_anonymous': False},
             )
-            print(node)
             nodes.append(node)
             for materia in periodo.materias.all():
                 node = NavigationNode(
@@ -36,8 +35,6 @@ class PeriodoMenu(CMSAttachMenu):
                     parent_id=periodo.numero,
                     attr={'visible_for_anonymous': False},
                 )
-
-                print(node)
                 nodes.append(node)
 
         return nodes
