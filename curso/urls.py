@@ -5,6 +5,8 @@ from . import views
 urlpatterns = [
     # ex: /materia/criar
     url('^materia/criar/$', views.MateriaCreateView.as_view(), name='materia-criar'),
+    # ex: /materia/atualizar
+    url('^materia/atualizar/(?P<materia_slug>[-\w]+)/$', views.MaterialUpdateView.as_view(), name='materia-atualizar'),
     # ex: /periodo/calculo
     url('^(?P<periodo_slug>[-\w]+)/(?P<materia_slug>[-\w]+)/$', views.MateriaDetailView, name='materia-detail'),
     # ex: /periodo/

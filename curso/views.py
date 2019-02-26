@@ -8,24 +8,20 @@ from extra_views import InlineFormSetFactory, CreateWithInlinesView, UpdateWithI
 from extra_views.generic import GenericInlineFormSetFactory
 
 
-class PeriodoInline(InlineFormSetFactory):
-    model = Periodo
-
-
 class ArquivosInline(GenericInlineFormSetFactory):
     model = Arquivos
-    fields = ['documento']
+    fields = "__all__"
     factory_kwargs = {'ct_field': 'content_type', 'fk_field': 'object_id',
                       'extra': 1}
-    formset_kwargs = {'save_as_new': True}
 
 
 class FotoInline(GenericInlineFormSetFactory):
     model = Foto
-    fields = ['imagem']
+    fields = "__all__"
     factory_kwargs = {'ct_field': 'content_type', 'fk_field': 'object_id',
                       'extra': 1}
-    formset_kwargs = {'save_as_new': True}
+
+
 
 class MateriaCreateView(CreateWithInlinesView):
     model = Materia
@@ -36,19 +32,25 @@ class MateriaCreateView(CreateWithInlinesView):
     def get_success_url(self):
         return self.object.get_absolute_url()
 
+class MaterialUpdateView(UpdateWithInlinesView):
+    model = Materia
+    inlines = [ArquivosInline, FotoInline]
+    fields = "__all__"
+    slug_url_kwarg = 'materia_slug'
+    template_name = 'curso/materia_atualizar.html'
 
-# class OrderUpdateView(UpdateWithInlinesView):
-#     model = Order
-#     form_class = OrderForm
-#     inlines = [ItemsInline, TagsInline]
-#
-#     def get_success_url(self):
-#         return self.object.get_absolute_url()
+    def get_success_url(self):
+       return self.object.get_absolute_url()
 
-# class MateriaCreateView(CreateView):
-#     model = Materia
-#     fields = ['titulo', 'slug', 'descricao', 'periodo', 'arquivos', 'album']
-#     template = 'curso/materia_criar.html'
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in the publisher
+        materia = get_object_or_404(Materia.objects.filter(slug=kwargs['materia_slug']))
+        context['materia'] = materia
+        context['arquivos'] = materia.arquivos.all()
+        context['album'] = materia.album.all()
+        return context
 
 
 @login_required

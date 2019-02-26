@@ -107,7 +107,8 @@ MIDDLEWARE = (
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
-    'cms.middleware.language.LanguageCookieMiddleware'
+    'cms.middleware.language.LanguageCookieMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 INSTALLED_APPS = (
@@ -141,6 +142,7 @@ INSTALLED_APPS = (
 	'disqus',
 	'widget_tweaks',
     'extra_views',
+    'debug_panel',
 	# My Packages
 	'turma',
     'curso',

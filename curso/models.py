@@ -4,6 +4,7 @@ from djangocms_text_ckeditor.fields import HTMLField
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 import os
+from django.db.models import Count
 
 # Create your models here.
 class Arquivos(models.Model):
@@ -93,6 +94,12 @@ class Materia(models.Model):
 
     def __str__(self):
         return self.titulo
+
+    @property
+    def group(self):
+        periodo = Periodo.objects.prefetch_related('materias').filter(pk=self.periodo.pk).annotate(num_materias=Count('materias'))
+        print(periodo[0])
+        return periodo[0].num_materias//4
 
     @models.permalink
     def get_absolute_url(self):

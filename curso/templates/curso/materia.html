@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% load cms_tags disqus_tags static %}
 
+{% block title %}{{ materia.titulo }}{% endblock title %}
+
 {% block content %}
-  <h5 class="card-title">{{ materia.titulo }}</h5>
-  <p class="card-text">{{ materia.descricao }}</p>
+<h2>{{ materia.titulo }}</h2>
+<div class="row">{{ materia.descricao }}</div>
   {% for foto in album %}
     <img class='inline-picture' src="{{ foto.document.url }}">
   {% endfor %}

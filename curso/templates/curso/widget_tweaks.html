@@ -1,0 +1,21 @@
+{% load cms_tags disqus_tags widget_tweaks static %}
+
+{% for hidden in myform.hidden_fields %}
+  {{ hidden }}
+{% endfor %}
+
+{% for error in myform.non_field_errors %}
+  <div class="alert alert-danger">
+    {{ error }}
+  </div>
+{% endfor %}
+
+{% for field in myform.visible_fields %}
+  <div class="form-group">
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {{ field|add_class:'col-md-6 form-control' }}
+    {% for error in field.errors %}
+      <span class="help-block">{{ error }}</span>
+    {% endfor %}
+  </div>
+{% endfor %}
