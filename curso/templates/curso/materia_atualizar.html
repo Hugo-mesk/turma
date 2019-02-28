@@ -5,37 +5,53 @@
 
 {% block content %}
 
-<form method="post">{% csrf_token %}
+<form method="post" action="{% url 'curso:curso_list' %}">{% csrf_token %}
 
   <h2>{{ materia.titulo }}</h2>
   <div class="row">{{ materia.descricao }}</div>
-  <div class="row">
+
+ <h3>Fotos</h3>
+
   {% for foto in album %}
-    <img class='inline-picture' src="{{ foto.document.url }}">
-  {% endfor %}
-  </div>
   <div class="row">
-  {% for arquivo in arquivos %}
-    <li><a href="{{ arquivo.documento.url }}">{{arquivo.documento.name}}</a></li>
-  {% endfor %}
+    <img class='inline-picture' src="{{ foto.imagem.url }}">
   </div>
+  {% endfor %}
+  {% with named_formset.foto_formset as formset %}
+    {% for form in formset %}
+    {{ formset.management_form }}
+        <div class="row">
+          {% include "curso/widget_tweaks.html" with myform=form %}
+        </div>
+    {% endfor %}
+
+  {% endwith %}
+
   <div hidden>
     {% include "curso/widget_tweaks.html" with myform=form %}
   </div>
 
-  {% for formset in inlines %}
-  {{ formset.management_form }}
-    {% for form in formset %}
-    <div class="row">
-        {% include "curso/widget_tweaks.html" with myform=form %}
-    </div>
-    {% endfor %}
+  <h3>Arquivos</h3>
+
+  {% for arquivo in arquivos %}
+  <div class="row">
+    <li><a href="{{ arquivo.documento.url }}">{{arquivo.documento.name}}</a></li>
+  </div>
   {% endfor %}
+
+  {% with named_formset.arquivo_formset as formset %}
+      {% for form in formset %}
+        <div class="row">
+            {% include "curso/widget_tweaks.html" with myform=form %}
+        </div>
+      {% endfor %}
+    {{ formset.management_form }}
+  {% endwith %}
   <div class="form-group">
-  <button type="submit" class="btn btn-success">
-    <span class="glyphicon glyphicon-ok"></span> Save
-  </button>
-  <a href="{% url 'curso:curso_list' %}" class="btn btn-default">Cancel</a>
+      <div class="col-md-9 col-md-offset-3">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+  </div>
 </div>
 </form>
 {% endblock content %}

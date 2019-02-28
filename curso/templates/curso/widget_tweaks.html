@@ -13,7 +13,7 @@
 {% for field in myform.visible_fields %}
   <div class="form-group">
     <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-    {{ field|add_class:'col-md-6 form-control' }}
+    {{ field|add_class:'col-md-12 form-control' }}
     {% for error in field.errors %}
       <span class="help-block">{{ error }}</span>
     {% endfor %}

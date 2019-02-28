@@ -9,14 +9,15 @@ from django.db.models import Count
 # Create your models here.
 class Arquivos(models.Model):
     def get_upload_to(self, filename):
-        filePath = (self.content_object.titulo)
+        materiaPath = self.content_object.slug
+        priodoPath = self.content_object.periodo.slug
+        myPath = os.path.join(priodoPath,materiaPath)
         if filename.replace(" ", "_"):
-            filename = filename.replace(" ", "_")
+            filename = "{}".format(filename.replace(" ", "_"))
+        else:
+            filename = "{}".format(filename)
 
-        if filePath.replace(" ", "_"):
-            filePath = filePath.replace(" ", "_")
-
-        return os.path.join(filePath,filename)
+        return os.path.join(myPath,filename)
 
     documento = models.FileField(upload_to=get_upload_to)
     data_criacao = models.DateField(auto_now_add=True)
@@ -35,11 +36,15 @@ class Arquivos(models.Model):
 
 class Foto(models.Model):
     def get_upload_to(self, filename):
-        filePath = self.content_object.titulo
+        materiaPath = self.content_object.slug
+        priodoPath = self.content_object.periodo.slug
+        myPath = os.path.join(priodoPath,materiaPath)
         if filename.replace(" ", "_"):
-            filePath = os.path.join(filePath , (filename.replace(" ", "_"),))
+            filename = "{}".format(filename.replace(" ", "_"))
+        else:
+            filename = "{}".format(filename)
 
-        return filePath
+        return os.path.join(myPath,filename)
 
     imagem = models.ImageField(upload_to=get_upload_to)
     data_criacao = models.DateField(auto_now_add=True)
@@ -103,7 +108,7 @@ class Materia(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('curso:materia-detail', (), {'periodo_slug':self.periodo.slug,'materia_slug':self.slug})
+        return ('curso:materia', (), {'periodo_slug':self.periodo.slug,'materia_slug':self.slug})
 
     class Meta:
         verbose_name = _("Matéria")

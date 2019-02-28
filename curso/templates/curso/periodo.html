@@ -15,7 +15,7 @@
           <div class="card-body">
             <h5 class="card-title">{{ materia.titulo }}</h5>
             <p class="card-text">{{ materia.descricao }}</p>
-            <a href="{{ materia.get_absolute_url }}" class="btn btn-primary">Detalhes</a>  <a href="{% url 'curso:materia-atualizar' materia.slug %}" class="btn btn-primary">Atualizar</a>
+            <a href="{% url 'curso:materia' periodo.slug materia.slug %}" class="btn btn-primary">Detalhes</a>
           </div>
         </div>
       </div>
