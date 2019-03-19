@@ -5,33 +5,33 @@
 
 {% block content %}
 
-<form method="post" action="{% url 'curso:curso_list' %}">{% csrf_token %}
 
   <h2>{{ materia.titulo }}</h2>
   <div class="row">{{ materia.descricao }}</div>
 
- <h3>Fotos</h3>
+  {% if album %}
+    <h3>Fotos</h3>
+  {% else %}
+    <p>Nenhuma foto</p>
+  {% endif %}
 
   {% for foto in album %}
   <div class="row">
     <img class='inline-picture' src="{{ foto.imagem.url }}">
   </div>
   {% endfor %}
-  {% with named_formset.foto_formset as formset %}
-    {% for form in formset %}
-    {{ formset.management_form }}
-        <div class="row">
-          {% include "curso/widget_tweaks.html" with myform=form %}
-        </div>
-    {% endfor %}
 
-  {% endwith %}
-
-  <div hidden>
-    {% include "curso/widget_tweaks.html" with myform=form %}
+  <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
+  <div class="row">
+    {% include "curso/widget_tweaks.html" with myform=foto_form mybtn="foto_submit" %}
   </div>
+  </form>
 
-  <h3>Arquivos</h3>
+  {% if arquivos %}
+    <h3>Arquivos</h3>
+  {% else %}
+    <p>Nenhum arquivo</p>
+  {% endif %}
 
   {% for arquivo in arquivos %}
   <div class="row">
@@ -39,21 +39,20 @@
   </div>
   {% endfor %}
 
-  {% with named_formset.arquivo_formset as formset %}
-      {% for form in formset %}
-        <div class="row">
-            {% include "curso/widget_tweaks.html" with myform=form %}
-        </div>
-      {% endfor %}
-    {{ formset.management_form }}
-  {% endwith %}
-  <div class="form-group">
-      <div class="col-md-9 col-md-offset-3">
-        <button type="submit" class="btn btn-primary">Salvar</button>
-      </div>
+  <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
+  <div class="row">
+    {% include "curso/widget_tweaks.html" with myform=arquivo_form mybtn="arquivo_submit" %}
   </div>
+  </form>
+
+
 </div>
 </form>
+<div class="row">
+    <div class="col-sm-9 blog-main">
+    {% disqus_show_comments %}
+    </div>
+</div>
 {% endblock content %}
 
 {% block extra_js %}

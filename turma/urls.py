@@ -10,6 +10,8 @@ from django.contrib.sitemaps.views import sitemap
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.static import serve
 
+from .views import Privacidade
+
 admin.autodiscover()
 
 urlpatterns = [
@@ -18,9 +20,12 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
+    url(r'^privacidade/$', Privacidade.as_view(), name='privacidade'),
     url(r'^admin/', include(admin.site.urls)),  # NOQA
-    url('accounts/', include('django.contrib.auth.urls')),
-    url('curso/', include('curso.urls', namespace='curso')),
+    #url('^accounts/', include('django.contrib.auth.urls')),
+    url(r'^accounts/', include('allauth.urls')),
+    url('^usuario/', include('usuario.urls', namespace='usuario')),
+    url('^curso/', include('curso.urls', namespace='curso')),
     url(r'^', include('cms.urls')),
 )
 

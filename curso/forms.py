@@ -1,5 +1,6 @@
 from django.forms import ModelForm
-from .models import Materia, Arquivos, Foto
+from .models import Materia, Arquivo, Foto
+
 
 class MateriaForm(ModelForm):
     class Meta:
@@ -7,13 +8,13 @@ class MateriaForm(ModelForm):
         fields = "__all__"
 
 
-class ArquivosForm(ModelForm):
+class ArquivoForm(ModelForm):
     class Meta:
-        model = Arquivos
-        fields = "__all__"
+        model = Arquivo
+        fields = ['documento']
 
 
 class FotoForm(ModelForm):
     class Meta:
         model = Foto
-        fields = "__all__"
+        fields = ['imagem']

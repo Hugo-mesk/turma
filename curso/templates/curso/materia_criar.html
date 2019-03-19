@@ -15,16 +15,11 @@
     {{ formset.management_form }}
     {% for form in formset %}
 
-        {% include "curso/widget_tweaks.html" with myform=form %}
+        {% include "curso/widget_tweaks.html" with myform=form mybtn="materia_submit" %}
 
     {% endfor %}
   {% endfor %}
-  <div class="form-group">
-  <button type="submit" class="btn btn-success">
-    <span class="glyphicon glyphicon-ok"></span> Save
-  </button>
-  <a href="{% url 'curso:curso_list' %}" class="btn btn-default">Cancel</a>
-</div>
+
 </form>
 {% endblock content %}
 

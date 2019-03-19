@@ -109,6 +109,8 @@ MIDDLEWARE = (
     'cms.middleware.toolbar.ToolbarMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #'curso.middleware.ArquivoFormMiddleware',
+    #'curso.middleware.FotoFormMiddleware',
 )
 
 INSTALLED_APPS = (
@@ -143,6 +145,12 @@ INSTALLED_APPS = (
 	'widget_tweaks',
     'extra_views',
     'debug_panel',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # ... include the providers you want to enable:
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
 	# My Packages
 	'turma',
     'curso',
@@ -155,6 +163,36 @@ DROPBOX_ROOT_PATH = '<APP ROOT>'
 
 DISQUS_API_KEY = '<YOUR API KEY>'
 DISQUS_WEBSITE_SHORTNAME = '<APP SHORTNAME>'
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email'],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': lambda request: 'pt_BR',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v2.12',
+    },
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    },
+}
+
+LOGIN_REDIRECT_URL = "/"
 
 CKEDITOR_SETTINGS = {
     'language': '{{ language }}',

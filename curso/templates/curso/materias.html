@@ -4,7 +4,13 @@
 {% block title %}Lista de Matérias{% endblock title %}
 
 {% block content %}
-  <h2 class="mb-4">Lista de Matérias</h2>  <a href="{% url 'curso:materia-criar' %}" class="btn btn-primary">Criar</a>
+  <div class="row">
+      <div class="col-lg-4"><h2 class="mb-4">Lista de Matérias</h2></div>
+      <div class="col-lg-4 mt-1">
+          <a href="{% url 'curso:materia-criar' %}" class="btn btn-primary">Criar</a>
+      </div>
+  </div>
+
   {% for periodo in periodos %}
 
   <h3 class="mb-4">{{ periodo.titulo }} </h3>
@@ -13,12 +19,12 @@
     {% for group in materia_list %}
     <div class="row">
       {% for materia in group.list %}
-        <div class="col-lg-4">
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">{{ materia.titulo }}</h5>
-              <p class="card-text">{{ materia.descricao }}</p>
-              <a href="{% url 'curso:materia' periodo.slug materia.slug %}" class="btn btn-primary">Detalhes</a>
+        <div class="col-lg-3 d-flex align-items-stretch m-2">
+          <div class="card border-secondary mb-3">
+            <div class="card-header">{{ materia.titulo }}</div>
+            <div class="card-body d-flex flex-column">
+              <p class="card-text text-justify">{{ materia.descricao|truncatewords_html:20 }}</p>
+              <a href="{% url 'curso:materia' periodo.slug materia.slug %}" class="btn btn-primary mt-auto">Detalhes</a>
             </div>
           </div>
         </div>

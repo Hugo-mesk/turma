@@ -1,65 +1,8 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from djangocms_text_ckeditor.fields import HTMLField
-from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
-from django.contrib.contenttypes.models import ContentType
 import os
 from django.db.models import Count
-
-# Create your models here.
-class Arquivos(models.Model):
-    def get_upload_to(self, filename):
-        materiaPath = self.content_object.slug
-        priodoPath = self.content_object.periodo.slug
-        myPath = os.path.join(priodoPath,materiaPath)
-        if filename.replace(" ", "_"):
-            filename = "{}".format(filename.replace(" ", "_"))
-        else:
-            filename = "{}".format(filename)
-
-        return os.path.join(myPath,filename)
-
-    documento = models.FileField(upload_to=get_upload_to)
-    data_criacao = models.DateField(auto_now_add=True)
-    # Tecnica de foreing key generica
-    # Em vez de declara a chave estrageira nessa classe vamos torna-la disponivel para todas as classes
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
-
-    def __str__(self):
-        return self.documento.name
-
-    class Meta:
-        verbose_name = _("Arquivo")
-        verbose_name_plural = _("Arquivos")
-
-class Foto(models.Model):
-    def get_upload_to(self, filename):
-        materiaPath = self.content_object.slug
-        priodoPath = self.content_object.periodo.slug
-        myPath = os.path.join(priodoPath,materiaPath)
-        if filename.replace(" ", "_"):
-            filename = "{}".format(filename.replace(" ", "_"))
-        else:
-            filename = "{}".format(filename)
-
-        return os.path.join(myPath,filename)
-
-    imagem = models.ImageField(upload_to=get_upload_to)
-    data_criacao = models.DateField(auto_now_add=True)
-    # Tecnica de foreing key generica
-    # Em vez de declara a chave estrageira nessa classe vamos torna-la disponivel para todas as classes
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
-
-    def __str__(self):
-        return self.imagem.name
-
-    class Meta:
-        verbose_name = _("Foto")
-        verbose_name_plural = _("Album")
 
 
 class Periodo(models.Model):
@@ -93,9 +36,6 @@ class Materia(models.Model):
     periodo = models.ForeignKey(Periodo,
                                 on_delete=models.CASCADE,
                                 related_name='materias')
-    # Como indicado acima usamos aqui as chaves estrageiras genericas
-    arquivos = GenericRelation(Arquivos, verbose_name=_("arquivos"))
-    album = GenericRelation(Foto, verbose_name=_("Album"))
 
     def __str__(self):
         return self.titulo
@@ -113,3 +53,56 @@ class Materia(models.Model):
     class Meta:
         verbose_name = _("Matéria")
         verbose_name_plural = _("Matérias")
+
+
+# Create your models here.
+class Arquivo(models.Model):
+    def get_upload_to(self, filename):
+        materiaPath = self.materia.slug
+        priodoPath = self.materia.periodo.slug
+        myPath = os.path.join(priodoPath,materiaPath)
+        if filename.replace(" ", "_"):
+            filename = "{}".format(filename.replace(" ", "_"))
+        else:
+            filename = "{}".format(filename)
+
+        return os.path.join(myPath,filename)
+
+    documento = models.FileField(upload_to=get_upload_to)
+    data_criacao = models.DateField(auto_now_add=True)
+    materia = models.ForeignKey(Materia,
+                                on_delete=models.CASCADE,
+                                related_name='arquivos')
+
+    def __str__(self):
+        return self.documento.name
+
+    class Meta:
+        verbose_name = _("Arquivo")
+        verbose_name_plural = _("Arquivos")
+
+
+class Foto(models.Model):
+    def get_upload_to(self, filename):
+        materiaPath = self.materia.slug
+        priodoPath = self.materia.periodo.slug
+        myPath = os.path.join(priodoPath,materiaPath)
+        if filename.replace(" ", "_"):
+            filename = "{}".format(filename.replace(" ", "_"))
+        else:
+            filename = "{}".format(filename)
+
+        return os.path.join(myPath,filename)
+
+    imagem = models.ImageField(upload_to=get_upload_to)
+    data_criacao = models.DateField(auto_now_add=True)
+    materia = models.ForeignKey(Materia,
+                                on_delete=models.CASCADE,
+                                related_name='album')
+
+    def __str__(self):
+        return self.imagem.name
+
+    class Meta:
+        verbose_name = _("Foto")
+        verbose_name_plural = _("Album")

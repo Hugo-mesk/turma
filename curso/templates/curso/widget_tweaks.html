@@ -1,5 +1,6 @@
 {% load cms_tags disqus_tags widget_tweaks static %}
 
+{% csrf_token %}
 {% for hidden in myform.hidden_fields %}
   {{ hidden }}
 {% endfor %}
@@ -19,3 +20,9 @@
     {% endfor %}
   </div>
 {% endfor %}
+
+<div class="form-group">
+      <div class='col-md-9 mt-4 {% if mybtn != "materia_submit" %}ml-4{% endif %}'>
+        <button class="btn btn-primary" type="submit" name={{ mybtn }} class="btn btn-primary">Salvar</button>
+      </div>
+</div>

@@ -6,15 +6,37 @@
 {% block content %}
 <h2>{{ materia.titulo }}</h2>
 <div class="row">{{ materia.descricao }}</div>
+
+  {% if album %}
+    <h3>Fotos</h3>
+  {% else %}
+    <p>Nenhuma foto</p>
+  {% endif %}
+
   {% for foto in album %}
-    <img class='inline-picture' src="{{ foto.document.url }}">
+
+  <div class="row">
+    <img class='inline-picture' src="{{ foto.imagem.url }}">
+  </div>
   {% endfor %}
+
+  {% if arquivos %}
+    <h3>Arquivos</h3>
+  {% else %}
+    <p>Nenhum arquivo</p>
+  {% endif %}
+
+  <form class="form-horizontal" method="post" action="{% url 'curso:foto' ">
+
   {% for arquivo in arquivos %}
+
+  <div class="row">
     <li><a href="{{ arquivo.documento.url }}">{{arquivo.documento.name}}</a></li>
+  </div>
   {% endfor %}
 
   <div class="row">
-        <div class="col-sm-6 blog-main">
+        <div class="col-sm-9 blog-main">
           {% disqus_show_comments %}
         </div>
     </div>
